@@ -73,11 +73,11 @@ else if(ch=='[')
 return 2;
 else if(ch=='{')
 return 1;
-else if(ch=='}')
+else if(ch==')')
 return 8;
 else if(ch==']')
 return 9;
-else if(ch==')')
+else if(ch=='}')
 return 10;
 else
 return -1;
@@ -97,8 +97,8 @@ delete st.s;
 int main()
 {
 stack2 s1;
-char x,ch;
-char y[20] = "[(a+b)*e-f/g]";
+char x,ch,ch1;
+char y[20] = "{[(a+b*c)*e-(f/g)]}";
 char res[20];
 int n,i=0,b,b1,b2;
 cout<<"Enter the size"<<endl;
@@ -115,28 +115,55 @@ case -1:  {
 	   i++;
 	   break;
 	  }
-case 10:
-{
-ch = s1.peek1();
-while(ch!='(')
-{
-res[i] = s1.pop1();
-ch = s1.peek1();
-i++;
-}
-x = s1.pop1();
-break;
-}
+case 2:
 case 9:
 {
-ch = s1.peek1();
-while(ch!='[')
+if(y[j]!=']')
+s1.push1(y[j]);
+else
 {
-res[i] = s1.pop1();
-ch = s1.peek1();
+ch1 = s1.pop1();
+while(ch1!='[')
+{
+res[i] = ch1;
 i++;
+ch1 = s1.pop1();
 }
-x = s1.pop1();
+}
+break;
+}
+case 3:
+case 8:
+{
+if(y[j]!=')')
+s1.push1(y[j]);
+else
+{
+ch1 = s1.pop1();
+while(ch1!='(')
+{
+res[i] = ch1;
+i++;
+ch1 = s1.pop1();
+}
+}
+break;
+}
+case 1:
+case 10:
+{
+if(y[j]!='}')
+s1.push1(y[j]);
+else
+{
+ch1 = s1.pop1();
+while(ch1!='{')
+{
+res[i] = ch1;
+i++;
+ch1 = s1.pop1();
+}
+}
 break;
 }
 default: 
@@ -144,6 +171,8 @@ default:
 if(!(s1.Isempty()))
 {
 ch = s1.peek1();
+if((ch!='[')&&(ch!='(')&&(ch!='{'))
+{
 b = s1.prece(ch);
 b1 =s1.prece(y[j]);
 if(b1<b)
@@ -151,6 +180,9 @@ if(b1<b)
 x = s1.pop1();
 res[i] = x;
 i++;
+s1.push1(y[j]);
+}
+else
 s1.push1(y[j]);
 }
 else
