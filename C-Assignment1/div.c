@@ -1,6 +1,6 @@
-float sub(int x,int y)
+float div1(int x,int y)
 {
 extern float res;
-res=x-y;
+res=x/y;
 return res;
 }
