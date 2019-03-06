@@ -12,13 +12,13 @@ int main()
 int option,size;
 char *s1, *s2;
 printf("Enter the size of the string\n");
-scanf("%d",&size);
+scanf_s("%d",&size,1);
 //Dynamic memory allocation
 s1 = (char*)malloc(size);
 s2 = (char*)malloc(size);
 printf("Enter your option\n");
 printf("1. String Reverse\n2. String Compare\n3. String Copy\n4. String concatenate\n");
-scanf("%d",&option);
+scanf_s("%d",&option,1);
 switch(option)
 {
 case 1: strreverse(s1); break;
@@ -29,6 +29,8 @@ if(result==0)
 printf("Strings are equal");
 else
 printf("Strings are not equal");
+free(s1);
+free(s2);
 break;
 }
 case 3: stringcopy(s1,s2); break;
@@ -42,7 +44,7 @@ void strreverse(char *s1)
 {
 int i,j;
 printf("Enter the string\n");
-scanf("%s",s1);
+scanf_s("%s", s1, 20);
 j = strlen(s1)-1;//end of the string
 for(i=0;i<(strlen(s1)-1),i<j;i++,j--)
 {
@@ -54,15 +56,16 @@ s1[j] = temp;
 //printing the string
 for(i=0;i<(strlen(s1));i++)
 printf("%c",s1[i]);
+free(s1);
 }
 //String compare function
 int strcompare(char *s1, char *s2)
 {
 int i=0;
 printf("Enter string1\n");
-scanf("%s",s1);
+scanf_s("%s", s1, 20);
 printf("Enter string2\n");
-scanf("%s",s2);
+scanf_s("%s", s2, 20);
 while(s1[i]==s2[i])
 {
 i++;
@@ -76,26 +79,31 @@ void stringcopy(char *s1, char *s2)
 {
 int i=0;
 printf("Enter string1\n");
-scanf("%s",s1);
+scanf_s("%s", s1, 20);
 while((s2[i]=s1[i])!='\0') // moving character by character
 i++;
 //printing the string
+printf("The second string is : ");
 for(i=0;i<(strlen(s2));i++)
 printf("%c",s2[i]);
+free(s1);
+free(s2);
 }
 //String concatenate function
 void strconcat(char *s1, char *s2)
 {
 int i=0,j=0;
 printf("Enter string1\n");
-scanf("%s",s1);
+scanf_s("%s", s1, 20);
 printf("Enter string2\n");
-scanf("%s",s2);
+scanf_s("%s", s2, 20);
 while(s1[i]!='\0') // migrate to the end of first string
 i++;
 while((s1[i++]=s2[j++])!='\0'); // from the end, 2nd string is appended
 //printing the string
 for(i=0;i<(strlen(s1));i++)
 printf("%c",s1[i]);
+free(s1);
+free(s2);
 }
 
